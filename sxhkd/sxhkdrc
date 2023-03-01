@@ -1,0 +1,29 @@
+#
+#
+#
+
+# brightness keys
+XF86MonBrightnessUp
+  brillo -q -A 5
+
+XF86MonBrightnessDown
+  brillo -q -U 5
+
+
+# volume control
+XF86AudioRaiseVolume
+  pactl set-sink-volume @DEFAULT_SINK@ +5%
+
+XF86AudioLowerVolume
+  pactl set-sink-volume @DEFAULT_SINK@ -5%
+
+XF86AudioMute
+  pactl set-sink-mute @DEFAULT_SINK@ toggle
+
+XF86AudioMicMute
+  pactl set-source-mute 0 toggle
+
+
+# keyboard layout
+XF86Launch1
+  $HOME/.scripts/kbd-layout.sh
