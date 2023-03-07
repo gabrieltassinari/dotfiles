@@ -3,11 +3,10 @@
 /usr/bin/pipewire-pulse &
 /usr/bin/pipewire-media-session &
 
-# Wallpaper and transparency
-# feh --bg-scale /home/gear/Downloads/winter.jpg &
-# exec picom &
-
-# xrandr --output DVI-D-0 --auto --right-of HDMI-0 &
+# Monitors and wallpapper
+xrandr --output DVI-D-0 --auto --right-of HDMI-0 &
+feh --bg-scale $HOME/Images/wallpaper.jpg &
+exec picom &
 
 # Hotkeys
 sxhkd &
