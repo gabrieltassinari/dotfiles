@@ -1,10 +1,14 @@
 call plug#begin()
 
 Plug 'davidhalter/jedi-vim'
+Plug 'alvan/vim-closetag'
+Plug 'lepture/vim-jinja'
 
 call plug#end()
 
 set number
+set relativenumber
+
 syntax on
 colorscheme molokai
 
