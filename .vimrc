@@ -1,8 +1,8 @@
 call plug#begin()
 
-Plug 'davidhalter/jedi-vim'
 Plug 'alvan/vim-closetag'
 Plug 'lepture/vim-jinja'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 call plug#end()
 
