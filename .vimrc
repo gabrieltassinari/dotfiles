@@ -3,6 +3,7 @@ call plug#begin()
 Plug 'alvan/vim-closetag'
 Plug 'lepture/vim-jinja'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'fatih/vim-go', {'do': 'GoUpdateBinaries'}
 
 call plug#end()
 
