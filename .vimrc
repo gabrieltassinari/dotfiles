@@ -19,6 +19,7 @@ syntax on
 colorscheme molokai
 
 map q :quit<CR>
+map <C-a> <Nop>
 map <C-s> :write<CR>
 
 hi Pmenu ctermbg=gray ctermfg=black
