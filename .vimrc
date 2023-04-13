@@ -15,6 +15,9 @@ set noexpandtab
 set tabstop=4
 set shiftwidth=4
 
+set ttymouse=xterm2
+set mouse=a
+
 syntax on
 colorscheme molokai
 
