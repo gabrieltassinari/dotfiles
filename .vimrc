@@ -12,8 +12,8 @@ set number
 set relativenumber
 
 set noexpandtab
-set tabstop=4
-set shiftwidth=4
+set tabstop=8
+set shiftwidth=8
 
 set ttymouse=xterm2
 set mouse=a
