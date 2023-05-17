@@ -1,3 +1,5 @@
 [user]
 	email = 100461539+gabrieltassinari@users.noreply.github.com
 	name = gabrieltassinari
+[core]
+	editor = vim
