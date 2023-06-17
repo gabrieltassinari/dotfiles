@@ -13,12 +13,10 @@ do
 done
 
 # Move all directories to proper places
+if ! [[ -d .config ]]; then
+	mkdir .config
+fi
+
+mv dotfiles/sxhkd .config
 mv dotfiles/.vim .
 mv dotfiles/.scripts .
-
-if [[ -d .config ]]; then
-	mv dotfiles/sxhkd .config
-else
-	mkdir .config
-	mv dotfiles/sxhkd .config
-fi
