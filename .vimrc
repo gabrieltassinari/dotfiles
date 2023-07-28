@@ -1,3 +1,4 @@
+" vim-plug
 call plug#begin()
 
 Plug 'alvan/vim-closetag'
@@ -17,16 +18,19 @@ set noexpandtab
 set tabstop=8
 set shiftwidth=8
 
+autocmd Filetype javascript set shiftwidth=4 tabstop=4
+autocmd Filetype html	    set shiftwidth=2 tabstop=2
+
 " Enable mouse (to scroll works with tmux)
 if !has('nvim')
 	set ttymouse=xterm2
 endif
 set mouse=a
 
+" Colorscheme/Colors
 syntax on
 set background=dark
 
-" Colorscheme/Colors
 let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
 let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 colorscheme ayu

@@ -7,7 +7,7 @@ for f in dotfiles/.*
 do
 	if [[ -f ${f} ]]; then
 		filename=${f##*/}
-		ln -s ${f} ${filename}
+		ln -sf ${f} ${filename}
 		echo "symbolic link created: ${filename}"
 	fi
 done
@@ -17,6 +17,11 @@ if ! [[ -d .config ]]; then
 	mkdir .config
 fi
 
+if [[ -d .config ]]; then
+	ln -s dotfiles/.vim/coc-settings.json .vim/coc-settings.json
+else
+	mv dotfiles/.vim .
+fi
+
 mv dotfiles/sxhkd .config
-mv dotfiles/.vim .
 mv dotfiles/.scripts .
