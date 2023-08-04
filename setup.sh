@@ -1,27 +1,20 @@
 #!/bin/bash
 
-
-# Create symbolic links for all files in dotfiles folder
-cd ~
-for f in dotfiles/.* 
+# Create symbolic links for all files
+for f in .*
 do
-	if [[ -f ${f} ]]; then
-		filename=${f##*/}
-		ln -sf ${f} ${filename}
-		echo "symbolic link created: ${filename}"
+	if [[ -f $f ]]; then
+		ln -sf $HOME/dotfiles/$f $HOME/$f
+		echo "symbolic link created: $f"
 	fi
 done
 
-# Move all directories to proper places
-if ! [[ -d .config ]]; then
-	mkdir .config
-fi
+mkdir $HOME/.vim 2>/dev/null
+ln -s $HOME/dotfiles/.vim/coc-settings.json $HOME/.vim/coc-settings.json
 
-if [[ -d .config ]]; then
-	ln -s dotfiles/.vim/coc-settings.json .vim/coc-settings.json
+# Move .config/ directory
+if [[ -d $HOME/.config ]]; then
+	mv .config/* $HOME/.config
 else
-	mv dotfiles/.vim .
+	mv .config $HOME
 fi
-
-mv dotfiles/sxhkd .config
-mv dotfiles/.scripts .

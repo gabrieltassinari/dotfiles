@@ -25,7 +25,7 @@ XF86AudioMicMute
 # keyboard layout
 #XF86Launch1
 XF86AudioMute
-  $HOME/.scripts/kbd-layout
+  $HOME/.config/scripts/kbd-layout
 
 Print
-  $HOME/.scripts/screenshot
+  $HOME/.config/.scripts/screenshot
