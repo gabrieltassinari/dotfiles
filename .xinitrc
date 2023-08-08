@@ -5,7 +5,8 @@
 
 # Monitors and wallpapper
 xrandr --output DVI-D-0 --auto --right-of HDMI-0 &
-feh --bg-scale $HOME/Pictures/wallpaper.jpg &
+hsetroot -solid '#111217' &
+xsetroot -cursor_name left_ptr &
 exec picom &
 
 # Hotkeys
