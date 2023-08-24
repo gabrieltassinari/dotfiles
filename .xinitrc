@@ -5,9 +5,8 @@
 
 # Monitors and wallpapper
 xrandr --output DVI-D-0 --auto --right-of HDMI-0 &
-hsetroot -solid '#111217' &
+xsetroot -solid '#111217' &
 xsetroot -cursor_name left_ptr &
-exec picom &
 
 # Hotkeys
 sxhkd &

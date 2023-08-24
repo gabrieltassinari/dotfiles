@@ -12,6 +12,12 @@ set encoding=utf-8
 set number
 set relativenumber
 set guicursor=i:block
+set wildmenu
+
+" Remove *~ / *.un files
+set nobackup
+set noundofile
+set noswapfile
 
 " Tab indentation
 set noexpandtab
@@ -46,3 +52,6 @@ map <C-s> :write<CR>
 hi signcolumn guibg=NONE ctermbg=NONE
 hi Normal guibg=NONE ctermbg=NONE
 hi StatusLine guibg=NONE ctermbg=NONE
+
+" Coc.nvim extensions
+let g:coc_global_extensions = ['coc-tsserver', 'coc-java']
