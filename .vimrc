@@ -54,4 +54,4 @@ hi Normal guibg=NONE ctermbg=NONE
 hi StatusLine guibg=NONE ctermbg=NONE
 
 " Coc.nvim extensions
-let g:coc_global_extensions = ['coc-tsserver', 'coc-java']
+let g:coc_global_extensions = ['coc-tsserver', 'coc-java', 'coc-clangd']
