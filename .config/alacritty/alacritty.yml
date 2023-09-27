@@ -6,8 +6,15 @@ window:
 env:
   WINIT_X11_SCALE_FACTOR: "0.82"
 font:
-  normal:
-    family: Liberation Mono
+    normal:
+      family: Liberation Mono
+      style: Regular
+    italic:
+      family: Liberation Mono
+      style: Italic
+    bold:
+      family: Liberation Mono
+      style: Bold
 # xterm colors
 colors:
   primary:

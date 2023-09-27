@@ -8,9 +8,6 @@ xrandr --output DVI-D-0 --auto --right-of HDMI-0 &
 xsetroot -solid '#111217' &
 xsetroot -cursor_name left_ptr &
 
-# Hotkeys
-sxhkd &
-
 # Suckless
 exec slstatus &
 exec dwm

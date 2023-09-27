@@ -23,6 +23,7 @@ set noswapfile
 set noexpandtab
 set tabstop=8
 set shiftwidth=8
+set backspace=indent,eol,start
 
 autocmd Filetype javascript set shiftwidth=4 tabstop=4
 autocmd Filetype html	    set shiftwidth=2 tabstop=2
@@ -54,4 +55,4 @@ hi Normal guibg=NONE ctermbg=NONE
 hi StatusLine guibg=NONE ctermbg=NONE
 
 " Coc.nvim extensions
-let g:coc_global_extensions = ['coc-tsserver', 'coc-java', 'coc-clangd']
+let g:coc_global_extensions = ['coc-tsserver', 'coc-java']
