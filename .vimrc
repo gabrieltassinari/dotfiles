@@ -44,11 +44,6 @@ colorscheme ayu
 set t_Co=256
 set termguicolors
 
-" Shortcuts
-map q :quit<CR>
-map <C-a> <Nop>
-map <C-s> :write<CR>
-
 " Background transparency
 hi signcolumn guibg=NONE ctermbg=NONE
 hi Normal guibg=NONE ctermbg=NONE
