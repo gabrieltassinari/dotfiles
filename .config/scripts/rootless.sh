@@ -2,7 +2,6 @@
 
 LOCALDIR=$HOME/.tools
 JOBS=-j4
-
 # Libraries
 LIBEVENT_VERSION=2.1.12-stable
 NCURSES_VERSION=6.4
@@ -11,6 +10,13 @@ TMUX_VERSION=3.3
 CLANGD_VERSION=16.0.2
 NEOVIM_VERSION=v0.9.0
 GO_VERSION=go1.21.0
+USAGE="usage: $(basename $0) [-h|-v]
+
+	-h, --help		Show helps and exit
+	-v, --version		Show the version of the script
+	-i, --install		Install everything
+	    --vim		Install only vim
+	    --tmux		Install only tmux"
 
 mkdir -p $LOCALDIR/install && cd $LOCALDIR/install
 
@@ -118,7 +124,15 @@ rm -rf $LOCALDIR/install
 }
 
 case "$1" in
-	"tmux")
+	-h | --help)
+		echo "$USAGE"
+		exit 0
+		;;
+	-v | --version)
+		echo "rootless v0.0.1"
+		exit 0
+		;;
+	--tmux)
 		echo "Installing tmux"
 		libevent &>/dev/null 
 		ncurses &>/dev/null
@@ -126,19 +140,14 @@ case "$1" in
 
 		cleanup
 		;;
-	"neovim")
+	--vim)
 		echo "Installing neovim"
 	       	ncurses &>/dev/null
 	       	clangd &>/dev/null
 	       	neovim &>/dev/null
 		cleanup
 		;;
-	"go")
-		echo "Installing go"
-		go &>/dev/null
-		cleanup
-		;;
-	"all")
+	-i | --install)
 		echo "Installing tmux"
 		libevent &>/dev/null 
 		ncurses &>/dev/null
@@ -154,5 +163,7 @@ case "$1" in
 		cleanup
 		;;
 	*)
-		echo "usage: rootless.sh [OPTION]"
+		echo "$USAGE"
+		exit 0
+		;;
 esac
