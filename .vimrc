@@ -4,6 +4,7 @@ call plug#begin()
 Plug 'alvan/vim-closetag'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'fatih/vim-go', {'do': 'GoUpdateBinaries'}
+Plug 'untitled-ai/jupyter_ascending.vim'
 Plug 'Luxed/ayu-vim'
 
 call plug#end()
@@ -25,7 +26,10 @@ set tabstop=8
 set shiftwidth=8
 set backspace=indent,eol,start
 
+autocmd Filetype python     set shiftwidth=4 expandtab
+autocmd Filetype json       set shiftwidth=4 tabstop=4
 autocmd Filetype javascript set shiftwidth=4 tabstop=4
+autocmd Filetype typescript set shiftwidth=2 tabstop=2
 autocmd Filetype html	    set shiftwidth=2 tabstop=2
 
 " Enable mouse (to scroll works with tmux)
@@ -50,4 +54,4 @@ hi Normal guibg=NONE ctermbg=NONE
 hi StatusLine guibg=NONE ctermbg=NONE
 
 " Coc.nvim extensions
-let g:coc_global_extensions = ['coc-tsserver', 'coc-java']
+let g:coc_global_extensions = ['coc-tsserver', 'coc-pyright']
