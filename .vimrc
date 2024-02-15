@@ -6,6 +6,7 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'fatih/vim-go', {'do': 'GoUpdateBinaries'}
 Plug 'untitled-ai/jupyter_ascending.vim'
 Plug 'Luxed/ayu-vim'
+Plug 'nikolvs/vim-sunbather'
 
 call plug#end()
 
@@ -31,6 +32,7 @@ autocmd Filetype sh 	    set shiftwidth=4 tabstop=4
 autocmd Filetype json       set shiftwidth=4 tabstop=4
 autocmd Filetype javascript set shiftwidth=4 tabstop=4
 autocmd Filetype typescript set shiftwidth=2 expandtab
+autocmd Filetype tsx	    set shiftwidth=2 expandtab
 autocmd Filetype html	    set shiftwidth=2 tabstop=2
 
 " Enable mouse (to scroll works with tmux)
@@ -45,14 +47,15 @@ set background=dark
 
 let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
 let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
-colorscheme ayu
+"colorscheme ayu
+colorscheme sunbather
 set t_Co=256
 set termguicolors
 
 " Background transparency
 hi signcolumn guibg=NONE ctermbg=NONE
 hi Normal guibg=NONE ctermbg=NONE
-hi StatusLine guibg=NONE ctermbg=NONE
+"hi StatusLine guibg=NONE ctermbg=NONE
 
 " Coc.nvim extensions
 let g:coc_global_extensions = ['coc-tsserver', 'coc-pyright']

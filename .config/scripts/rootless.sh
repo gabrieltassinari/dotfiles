@@ -1,22 +1,29 @@
 #!/bin/bash
 
+VERSION=v0.0.2
 LOCALDIR=$HOME/.tools
-JOBS=-j4
+JOBS=-j$(nproc)
+
 # Libraries
 LIBEVENT_VERSION=2.1.12-stable
 NCURSES_VERSION=6.4
+
 # Programs
 TMUX_VERSION=3.3
 CLANGD_VERSION=16.0.2
-NEOVIM_VERSION=v0.9.0
+NVIM_VERSION=v0.9.0
 GO_VERSION=go1.21.0
-USAGE="usage: $(basename $0) [-h|-v]
 
-	-h, --help		Show helps and exit
-	-v, --version		Show the version of the script
-	-i, --install		Install everything
-	    --vim		Install only vim
-	    --tmux		Install only tmux"
+usage() {
+	cat << EOF
+Usage: $(basename $0) [OPTIONS]
+
+Arguments supported.
+  -h, --help		Show helps and exit
+  -v, --version		Show the version of the script
+  -i, --install		Install everything
+EOF
+}
 
 mkdir -p $LOCALDIR/install && cd $LOCALDIR/install
 
@@ -24,80 +31,60 @@ libevent() {
 	wget https://github.com/libevent/libevent/releases/download/release-$LIBEVENT_VERSION/libevent-$LIBEVENT_VERSION.tar.gz
 	tar -xf libevent-$LIBEVENT_VERSION.tar.gz
 
-	cd libevent-$LIBEVENT_VERSION
-
-	./configure \
+	./libevent-$LIBEVENT_VERSION/configure \
 		--prefix=$LOCALDIR \
 		--disable-shared \
 		--disable-openssl
 	make $JOBS && make install
-
-	cd ..
 }
 
 ncurses() {
 	wget https://ftp.gnu.org/pub/gnu/ncurses/ncurses-$NCURSES_VERSION.tar.gz
 	tar -xf ncurses-$NCURSES_VERSION.tar.gz
 
-	cd ncurses-$NCURSES_VERSION
-
-	./configure \
+	./ncurses-$NCURSES_VERSION/configure \
 		--prefix=$LOCALDIR \
 		--with-pkg-config-libdir=$LOCALDIR/lib/pkgconfig
 	make $JOBS && make install
-
-	cd ..
 }
 
 tmux() {
 	wget https://github.com/tmux/tmux/releases/download/$TMUX_VERSION/tmux-$TMUX_VERSION.tar.gz
 	tar -xf tmux-$TMUX_VERSION.tar.gz
 
-	cd tmux-$TMUX_VERSION
-
-	PKG_CONFIG_PATH=$LOCALDIR/lib/pkgconfig ./configure \
+	PKG_CONFIG_PATH=$LOCALDIR/lib/pkgconfig ./tmux-$TMUX_VERSION/configure \
 		--prefix=$LOCALDIR \
 		CFLAGS="-I$LOCALDIR/include -I$LOCALDIR/include/ncurses" \
 		LDFLAGS="-L$LOCALDIR/lib -L$LOCALDIR/lib/ncurses"
 	make $JOBS && make install
-
-	cd ..
 }
 
 clangd() {
 	wget https://github.com/clangd/clangd/releases/download/$CLANGD_VERSION/clangd-linux-$CLANGD_VERSION.zip
 	unzip clangd-linux-$CLANGD_VERSION.zip
 
-	cd clangd_$CLANGD_VERSION
-	cp -R * $LOCALDIR/
-
-	cd ..
+	cp -R clangd_$CLANGD_VERSION/* $LOCALDIR/
 }
 
 neovim() {
-	wget https://github.com/neovim/neovim/releases/download/$NEOVIM_VERSION/nvim-linux64.tar.gz
+	wget https://github.com/neovim/neovim/releases/download/$NVIM_VERSION/nvim-linux64.tar.gz
 	tar -xf nvim-linux64.tar.gz
 
-	cd nvim-linux64
-	cp -R * $LOCALDIR
+	cp -R nvim-linux64/* $LOCALDIR
 
-	# vimrc into nvim
-	mkdir -p $HOME/.config/nvim
-	echo "set runtimepath^=~/.vim runtimepath+=~/.vim/after
-	let &packpath=&runtimepath
-	source ~/.vimrc" >> $HOME/.config/nvim/init.vim
+	git clone https://github.com/gabrieltassinari/dotfiles $LOCALDIR/dotfiles
 
-	# vim-plug + coc.nvim + dotfiles
+	files=".inputrc .tmux.conf .vimrc .config/nvim"
+	for f in $files; do ln -sf "$LOCALDIR/dotfiles/$f $HOME/$f"; done
+
+	cp ~/.vim/coc-settings.json ~/.config/nvim/
+}
+
+vim_plug() {
 	mkdir -p ~/.vim/autoload
-	wget https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim -P ~/.vim/autoload/ && \
-	    git clone https://github.com/gabrieltassinari/dotfiles.git ~/dotfiles && \
-	    wget https://raw.githubusercontent.com/git/git/master/contrib/completion/git-prompt.sh -O ~/.git-prompt.sh && \
-	    cd ~/dotfiles && rm .bash_profile .bashrc .xinitrc && ./setup.sh && \
-	    cp ~/.vim/coc-settings.json ~/.config/nvim/
+	wget https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim -P ~/.vim/autoload/
 
 	$LOCALDIR/bin/nvim --headless +PlugInstall +qall 2>/dev/null
-
-	cd ..
 }
 
 go() {
@@ -111,59 +98,43 @@ go() {
 
 cleanup() {
 	cat << EOF >> $HOME/.bashrc
+# rootless.sh
 alias vi='nvim'
 alias vim='nvim'
 
-export GOPATH=$LOCALDIR/go
-export GOBIN=$LOCALDIR/go/bin
-export PATH=$LOCALDIR/bin:\$GOBIN:$PATH
+export GOPATH=\$LOCALDIR/go
+export GOBIN=\$LOCALDIR/go/bin
+export PATH=\$PATH:\$GOBIN:\$LOCALDIR/bin
 EOF
 
-echo "Done!"
-rm -rf $LOCALDIR/install
+	echo "Done!"
+	rm -rf $LOCALDIR/install
 }
 
 case "$1" in
 	-h | --help)
-		echo "$USAGE"
-		exit 0
+		usage
 		;;
 	-v | --version)
-		echo "rootless v0.0.1"
-		exit 0
-		;;
-	--tmux)
-		echo "Installing tmux"
-		libevent &>/dev/null 
-		ncurses &>/dev/null
-	       	tmux &>/dev/null
-
-		cleanup
-		;;
-	--vim)
-		echo "Installing neovim"
-	       	ncurses &>/dev/null
-	       	clangd &>/dev/null
-	       	neovim &>/dev/null
-		cleanup
+		echo "rootless $VERSION"
 		;;
 	-i | --install)
-		echo "Installing tmux"
-		libevent &>/dev/null 
-		ncurses &>/dev/null
-	       	tmux &>/dev/null
+		echo "installing tmux"
+		libevent
+		ncurses
+		clangd
+	    tmux
 
-		echo "Installing neovim"
-	       	ncurses &>/dev/null
-	       	clangd &>/dev/null
-	       	neovim &>/dev/null
+		echo "installing neovim"
+		neovim
+		vim_plug
 
-		echo "Installing go"
+		echo "installing go"
 		go &>/dev/null
+
 		cleanup
 		;;
 	*)
-		echo "$USAGE"
-		exit 0
+		usage
 		;;
 esac
