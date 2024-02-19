@@ -102,9 +102,9 @@ cleanup() {
 alias vi='nvim'
 alias vim='nvim'
 
-export GOPATH=\$LOCALDIR/go
-export GOBIN=\$LOCALDIR/go/bin
-export PATH=\$PATH:\$GOBIN:\$LOCALDIR/bin
+export GOPATH=$LOCALDIR/go
+export GOBIN=$LOCALDIR/go/bin
+export PATH=\$PATH:\$GOBIN:$LOCALDIR/bin
 EOF
 
 	echo "Done!"
