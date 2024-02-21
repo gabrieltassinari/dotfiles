@@ -78,10 +78,10 @@ neovim() {
 
 	git clone https://github.com/gabrieltassinari/dotfiles $LOCALDIR/dotfiles
 
-	files=".inputrc .tmux.conf .vimrc .config/nvim"
-	for f in $files; do ln -sf "$LOCALDIR/dotfiles/$f $HOME/$f"; done
+	[[ ! -d $HOME/.config ]] && mkdir $HOME/.config
 
-	cp ~/.vim/coc-settings.json ~/.config/nvim/
+	files=".inputrc .tmux.conf .vimrc .vim .config/nvim"
+	for f in $files; do ln -sf $LOCALDIR/dotfiles/$f $HOME/$f; done
 }
 
 vim_plug() {
