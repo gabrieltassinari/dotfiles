@@ -52,11 +52,15 @@ tmux() {
 	wget https://github.com/tmux/tmux/releases/download/$TMUX_VERSION/tmux-$TMUX_VERSION.tar.gz
 	tar -xf tmux-$TMUX_VERSION.tar.gz
 
-	PKG_CONFIG_PATH=$LOCALDIR/lib/pkgconfig ./tmux-$TMUX_VERSION/configure \
+	cd tmux-$TMUX_VERSION
+
+	PKG_CONFIG_PATH=$LOCALDIR/lib/pkgconfig ./configure \
 		--prefix=$LOCALDIR \
 		CFLAGS="-I$LOCALDIR/include -I$LOCALDIR/include/ncurses" \
-		LDFLAGS="-L$LOCALDIR/lib -L$LOCALDIR/lib/ncurses"
+		LDFLAGS="-L$LOCALDIR/lib"
 	make $JOBS && make install
+
+	cd ..
 }
 
 clangd() {
@@ -123,7 +127,7 @@ case "$1" in
 		libevent
 		ncurses
 		clangd
-	    tmux
+		tmux
 
 		echo "installing neovim"
 		neovim
