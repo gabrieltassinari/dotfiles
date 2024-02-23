@@ -10,6 +10,11 @@ Plug 'nikolvs/vim-sunbather'
 
 call plug#end()
 
+" Mapping
+nnoremap <silent>c, :CocDisable<CR>
+nnoremap <silent>c. :CocEnable<CR>
+
+" General config
 set encoding=utf-8
 set number
 set relativenumber
@@ -27,13 +32,14 @@ set tabstop=8
 set shiftwidth=8
 set backspace=indent,eol,start
 
-autocmd Filetype python     set shiftwidth=4 expandtab
-autocmd Filetype sh 	    set shiftwidth=4 tabstop=4
-autocmd Filetype json       set shiftwidth=4 tabstop=4
-autocmd Filetype javascript set shiftwidth=4 tabstop=4
-autocmd Filetype typescript set shiftwidth=2 expandtab
-autocmd Filetype tsx	    set shiftwidth=2 expandtab
-autocmd Filetype html	    set shiftwidth=2 tabstop=2
+autocmd Filetype python          set shiftwidth=4 expandtab
+autocmd Filetype sh              set shiftwidth=4 tabstop=4
+autocmd Filetype json            set shiftwidth=4 tabstop=4
+autocmd Filetype javascript      set shiftwidth=4 tabstop=4
+autocmd Filetype typescript      set shiftwidth=2 expandtab
+autocmd Filetype typescriptreact set shiftwidth=2 expandtab
+autocmd Filetype html            set shiftwidth=2 tabstop=2
+
 
 " Enable mouse (to scroll works with tmux)
 if !has('nvim')
