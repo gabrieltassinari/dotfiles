@@ -108,7 +108,8 @@ alias vim='nvim'
 
 export GOPATH=$LOCALDIR/go
 export GOBIN=$LOCALDIR/go/bin
-export PATH=\$PATH:\$GOBIN:$LOCALDIR/bin
+export SCRIPTS=$LOCALDIR/dotfiles/.config/scripts
+export PATH=\$PATH:\$GOBIN:\$SCRIPTS:$LOCALDIR/bin
 EOF
 
 	echo "Done!"
