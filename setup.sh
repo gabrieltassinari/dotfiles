@@ -1,14 +1,12 @@
 #!/bin/bash
 
 # Symbolic links for . files
-for f in .*; do
-	if [[ $f != ".git" ]]; then
-		ln -sf $HOME/dotfiles/$f $HOME/$f
-		echo "symbolic link created: $f"
-	fi
+for file in .*; do
+	[[ -f $file ]] && ln -sv $HOME/dotfiles/$file $HOME/$file
 done
 
 # Symbolic links for .config/ files
-[[ -z $HOME/.config ]] && mkdir $HOME/.config
+[[ -d $HOME/.config ]] || mkdir $HOME/.config
 
-for d in .config/*; do ln -s $HOME/dotfiles/$d $HOME/$d; done
+ln -sv $HOME/dotfiles/.config/{nvim,scripts,alacritty} $HOME/.config/
+ln -sv $HOME/dotfiles/.vim $HOME/.vim
