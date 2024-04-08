@@ -36,18 +36,18 @@ install() {
 
 new_file() {
 	[[ -z $1 ]] && usage
-	[[ -f "$1.sync.ipynb" ]] && "$NAME: file '$1' already exists." && usage
+	[[ -f "$1.sync.ipynb" ]] && echo "$NAME: file '$1' already exists." && exit 2
 
 	python -m jupyter_ascending.scripts.make_pair --base $1
 }
 
 open_notebook() {
-	[[ $1 != *.sync.ipynb ]] && "$NAME: file '$1' isn't have '.sync.ipynb' extension." && usage
+	[[ $1 != *.sync.ipynb ]] && echo "$NAME: file '$1' doesn't have '.sync.ipynb' extension." && exit 2
 	jupyter notebook $1 &>/dev/null &
 }
 
 convert() {
-	[[ $1 != *.ipynb ]] && "$NAME: file '$1' isn't have '.ipynb' extension." && usage
+	[[ $1 != *.ipynb ]] && echo "$NAME: file '$1' doesn't have '.ipynb' extension." && exit 2
 
 	file=$(basename $1 .ipynb)
 	mv $1 $file.sync.ipynb
