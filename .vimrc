@@ -13,6 +13,16 @@ call plug#end()
 " Mapping
 nnoremap <silent>c, :CocDisable<CR>
 nnoremap <silent>c. :CocEnable<CR>
+map <silent>gd <Plug>(coc-definition)
+
+" Replace increment key due to tmux bind C-a
+nnoremap <C-b> <C-a>
+xnoremap <C-b> <C-a>
+xnoremap g<C-b> g<C-a>
+
+" Create a new jupyter cell
+noremap <silent> <C-s>c o# %%<Esc>
+noremap <silent> <C-s>m o# %% [markdown]<Esc>
 
 " General config
 set encoding=utf-8
