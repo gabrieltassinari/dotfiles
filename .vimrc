@@ -34,12 +34,13 @@ set backspace=indent,eol,start
 
 autocmd Filetype python          set shiftwidth=4 expandtab
 autocmd Filetype sh              set shiftwidth=4 tabstop=4
-autocmd Filetype json            set shiftwidth=4 tabstop=4
-autocmd Filetype javascript      set shiftwidth=4 tabstop=4
+autocmd Filetype json            set shiftwidth=2 expandtab
+autocmd Filetype javascript      set shiftwidth=2 expandtab
 autocmd Filetype typescript      set shiftwidth=2 expandtab
 autocmd Filetype typescriptreact set shiftwidth=2 expandtab
-autocmd Filetype html            set shiftwidth=2 tabstop=2
-
+autocmd Filetype html            set shiftwidth=2 expandtab
+autocmd Filetype css             set shiftwidth=2 tabstop=2
+autocmd Filetype cpp             set shiftwidth=4 tabstop=4
 
 " Enable mouse (to scroll works with tmux)
 if !has('nvim')
