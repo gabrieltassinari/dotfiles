@@ -1,11 +1,11 @@
 #!/bin/bash
 #
 # Dependencies: 
-# Bash, perl and python
+# Bash and python
 #
 
 NAME=$(basename $0)
-VERSION=v0.2
+VERSION=v0.3
 
 usage() {
 	cat << EOF
@@ -49,11 +49,10 @@ open_notebook() {
 convert() {
 	[[ $1 != *.ipynb ]] && echo "$NAME: file '$1' doesn't have '.ipynb' extension." && exit 2
 
-	file=$(basename $1 .ipynb)
-	mv $1 $file.sync.ipynb
+	file=$(basename $1 .ipynb).sync
 
-	jupyter nbconvert $file.sync.ipynb --to python
-	perl -0777 -pi -e 's/In\[.\]:\n\n/%%/g' $file.sync.py
+	jupytext --to py:percent -o $file.py $1
+	mv $1 $file.ipynb
 }
 
 case $1 in
