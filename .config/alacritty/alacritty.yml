@@ -1,0 +1,41 @@
+window:
+  opacity: 0.75
+  dimensions:
+    columns: 80
+    lines: 24
+env:
+  WINIT_X11_SCALE_FACTOR: "0.82"
+font:
+  size: 9
+  normal:
+    family: "Liberation Mono"
+    style: "Regular"
+  italic:
+    family: "Liberation Mono"
+    style: "Italic"
+  bold:
+    family: "Liberation Mono"
+    style: "Bold"
+# xterm colors
+colors:
+  primary:
+    background: "#000000"
+    foreground: "#ffffff"
+  normal:
+    black: "#000000"
+    red: "#cd0000"
+    green: "#00cd00"
+    yellow: "#cdcd00"
+    blue: "#5555ff"
+    magenta: "#cd00cd"
+    cyan: "#00cdcd"
+    white: "#e5e5e5"
+  bright:
+    black: "#7f7f7f"
+    red: "#ff0000"
+    green: "#00ff00"
+    yellow: "#ffff00"
+    blue: "#5c5cff"
+    magenta: "#ff00ff"
+    cyan: "#00ffff"
+    white: "#ffffff"

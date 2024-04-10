@@ -15,7 +15,8 @@ source ~/.git-prompt.sh
 alias ls='ls --color=auto'
 alias grep='grep --color=auto'
 alias tree='tree -C'
-alias vi='vim'
+alias vi='nvim'
+alias vim='nvim'
 
 PS1='\[\e[38;5;14m\][\u@\h \[\e[38;5;33m\]\W\[\e[38;5;14m\]]\[\e[38;5;68m\]$(__git_ps1 " (%s)")\[\e[m\] $ '
 
