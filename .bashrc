@@ -8,17 +8,18 @@
 set -o vi
 source ~/.git-prompt.sh
 
-#if [ -x "$(command -v tmux)" ] && [ -n "${DISPLAY}" ] && [ -z "${TMUX}" ]; then
-#    tmux attach || tmux >/dev/null 2>&1
-#fi
-
 alias ls='ls --color=auto'
 alias grep='grep --color=auto'
 alias tree='tree -C'
 alias vi='vim'
 
-PS1='\[\e[38;5;14m\][\u@\h \[\e[38;5;33m\]\W\[\e[38;5;14m\]]\[\e[38;5;68m\]$(__git_ps1 " (%s)")\[\e[m\] $ '
+color_1='\[\e[38;5;14m\]'
+color_2='\[\e[38;5;33m\]'
+git_ps1='$(__git_ps1 " (%s)")\[\e[m\] $ '
+
+PS1="$color_1[\u@\h $color_2\W$color_1]$color_2$git_ps1"
 
 export LC_ALL="en_US.UTF-8"
-export GOPATH=$HOME/go
-export PATH="$PATH:/$HOME/.local/bin/:/usr/local/go/bin/:$GOPATH/bin"
+export GOPATH=$HOME/go/bin:/usr/local/go/bin
+export SCRIPTS=$HOME/dotfiles/.config/scripts
+export PATH="$PATH:$SCRIPTS:$HOME/.local/:$GOPATH"
