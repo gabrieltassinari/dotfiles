@@ -6,7 +6,7 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'fatih/vim-go', {'do': 'GoUpdateBinaries'}
 Plug 'untitled-ai/jupyter_ascending.vim'
 Plug 'Luxed/ayu-vim'
-Plug 'nikolvs/vim-sunbather'
+Plug 'gabrieltassinari/vim-sunbather'
 
 call plug#end()
 
@@ -42,15 +42,16 @@ set tabstop=8
 set shiftwidth=8
 set backspace=indent,eol,start
 
-autocmd Filetype python          set shiftwidth=4 expandtab
-autocmd Filetype sh              set shiftwidth=4 tabstop=4
-autocmd Filetype json            set shiftwidth=2 expandtab
-autocmd Filetype javascript      set shiftwidth=2 expandtab
-autocmd Filetype typescript      set shiftwidth=2 expandtab
-autocmd Filetype typescriptreact set shiftwidth=2 expandtab
-autocmd Filetype html            set shiftwidth=2 expandtab
-autocmd Filetype css             set shiftwidth=2 tabstop=2
-autocmd Filetype cpp             set shiftwidth=4 tabstop=4
+autocmd Filetype python          set sw=4 ts=4 et
+autocmd Filetype haskell         set sw=4 ts=4 et
+autocmd Filetype sh              set sw=4 ts=4 noet
+autocmd Filetype cpp             set sw=4 ts=4 noet
+autocmd Filetype css             set sw=2 ts=2 noet
+autocmd Filetype json            set sw=2 ts=2 et
+autocmd Filetype javascript      set sw=2 ts=2 et
+autocmd Filetype typescript      set sw=2 ts=2 et
+autocmd Filetype typescriptreact set sw=2 ts=2 et
+autocmd Filetype html            set sw=2 ts=2 et
 
 " Enable mouse (to scroll works with tmux)
 if !has('nvim')
@@ -61,13 +62,9 @@ set mouse=a
 " Colorscheme/Colors
 syntax on
 set background=dark
-
-let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 "colorscheme ayu
 colorscheme sunbather
 set t_Co=256
-set termguicolors
 
 " Background transparency
 hi signcolumn guibg=NONE ctermbg=NONE
