@@ -1,5 +1,7 @@
 require('two')
 
+vim.g.mapleader = ' '
+vim.g.maplocalleader = ' '
 -- General config
 vim.opt.relativenumber = true
 
