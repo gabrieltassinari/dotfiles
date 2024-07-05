@@ -28,6 +28,7 @@ vim.opt.backspace = { 'indent', 'eol' ,'start' }
 
 -- Colorscheme
 vim.cmd.colorscheme('sunbather')
+vim.opt.background = 'light'
 
 vim.cmd.highlight({ "Normal", "guibg=NONE", "ctermbg=NONE" })
 vim.cmd.highlight({ "signcolumn", "guibg=NONE", "ctermbg=NONE" })
