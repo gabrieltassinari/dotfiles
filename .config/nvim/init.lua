@@ -1,9 +1,13 @@
-require('two')
-
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
+
+-- Plugins
+require('two')
+
 -- General config
+vim.opt.number = true
 vim.opt.relativenumber = true
+vim.api.nvim_set_option("clipboard","unnamed")
 
 -- Mapping
 
@@ -28,7 +32,7 @@ vim.opt.backspace = { 'indent', 'eol' ,'start' }
 
 -- Colorscheme
 vim.cmd.colorscheme('sunbather')
-vim.opt.background = 'light'
+vim.opt.background = 'dark'
 
 vim.cmd.highlight({ "Normal", "guibg=NONE", "ctermbg=NONE" })
 vim.cmd.highlight({ "signcolumn", "guibg=NONE", "ctermbg=NONE" })
