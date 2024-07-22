@@ -1,6 +1,6 @@
 #!/bin/bash
 
-VERSION=v0.0.2
+VERSION=v0.0.3
 LOCALDIR=$HOME/.tools
 JOBS=-j$(nproc)
 
@@ -11,8 +11,8 @@ NCURSES_VERSION=6.4
 # Programs
 TMUX_VERSION=3.3
 CLANGD_VERSION=16.0.2
-NVIM_VERSION=v0.9.0
-GO_VERSION=go1.21.0
+NVIM_VERSION=v0.10.0
+GO_VERSION=go1.22.5
 
 usage() {
 	cat << EOF
@@ -25,34 +25,28 @@ Arguments supported.
 EOF
 }
 
-mkdir -p $LOCALDIR/install && cd $LOCALDIR/install
+mkdir -p $LOCALDIR/{src,build} && cd $LOCALDIR/build
 
-libevent() {
-	wget https://github.com/libevent/libevent/releases/download/release-$LIBEVENT_VERSION/libevent-$LIBEVENT_VERSION.tar.gz
-	tar -xf libevent-$LIBEVENT_VERSION.tar.gz
+tmux() {
+    wget -P $LOCALDIR/src https://github.com/libevent/libevent/releases/download/release-$LIBEVENT_VERSION/libevent-$LIBEVENT_VERSION.tar.gz
+	tar -xf $LOCALDIR/src/libevent-$LIBEVENT_VERSION.tar.gz
 
 	./libevent-$LIBEVENT_VERSION/configure \
 		--prefix=$LOCALDIR \
 		--disable-shared \
 		--disable-openssl
 	make $JOBS && make install
-}
 
-ncurses() {
-	wget https://ftp.gnu.org/pub/gnu/ncurses/ncurses-$NCURSES_VERSION.tar.gz
-	tar -xf ncurses-$NCURSES_VERSION.tar.gz
+	wget -P $LOCALDIR/src https://ftp.gnu.org/pub/gnu/ncurses/ncurses-$NCURSES_VERSION.tar.gz
+	tar -xf $LOCALDIR/src/ncurses-$NCURSES_VERSION.tar.gz
 
 	./ncurses-$NCURSES_VERSION/configure \
 		--prefix=$LOCALDIR \
 		--with-pkg-config-libdir=$LOCALDIR/lib/pkgconfig
 	make $JOBS && make install
-}
 
-tmux() {
-	wget https://github.com/tmux/tmux/releases/download/$TMUX_VERSION/tmux-$TMUX_VERSION.tar.gz
-	tar -xf tmux-$TMUX_VERSION.tar.gz
-
-	cd tmux-$TMUX_VERSION
+	wget -P $LOCALDIR/src https://github.com/tmux/tmux/releases/download/$TMUX_VERSION/tmux-$TMUX_VERSION.tar.gz
+	tar -xf $LOCALDIR/src/tmux-$TMUX_VERSION.tar.gz && cd tmux-$TMUX_VERSION
 
 	PKG_CONFIG_PATH=$LOCALDIR/lib/pkgconfig ./configure \
 		--prefix=$LOCALDIR \
@@ -63,13 +57,6 @@ tmux() {
 	cd ..
 }
 
-clangd() {
-	wget https://github.com/clangd/clangd/releases/download/$CLANGD_VERSION/clangd-linux-$CLANGD_VERSION.zip
-	unzip clangd-linux-$CLANGD_VERSION.zip
-
-	cp -R clangd_$CLANGD_VERSION/* $LOCALDIR/
-}
-
 neovim() {
 	wget https://github.com/neovim/neovim/releases/download/$NVIM_VERSION/nvim-linux64.tar.gz
 	tar -xf nvim-linux64.tar.gz
@@ -78,17 +65,17 @@ neovim() {
 
 	git clone https://github.com/gabrieltassinari/dotfiles $LOCALDIR/dotfiles
 
-	[[ ! -d $HOME/.config ]] && mkdir $HOME/.config
+	[[ -d $HOME/.config ]] || mkdir $HOME/.config
 
-	files=".inputrc .tmux.conf .vimrc .vim .config/nvim"
-	for f in $files; do ln -sf $LOCALDIR/dotfiles/$f $HOME/$f; done
+	files=".inputrc .tmux.conf .config/nvim .config/alacritty"
+	for f in $files; do ln -sf $HOME/.tools/dotfiles/$f $HOME/$f; done
 }
 
-vim_plug() {
-	mkdir -p ~/.vim/autoload
-	wget https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim -P ~/.vim/autoload/
+clangd() {
+	wget https://github.com/clangd/clangd/releases/download/$CLANGD_VERSION/clangd-linux-$CLANGD_VERSION.zip
+	unzip clangd-linux-$CLANGD_VERSION.zip
 
-	$LOCALDIR/bin/nvim --headless +PlugInstall +qall 2>/dev/null
+	cp -R clangd_$CLANGD_VERSION/* $LOCALDIR/
 }
 
 go() {
@@ -113,7 +100,6 @@ export PATH=\$PATH:\$GOBIN:\$SCRIPTS:$LOCALDIR/bin
 EOF
 
 	echo "Done!"
-	rm -rf $LOCALDIR/install
 }
 
 case "$1" in
@@ -124,18 +110,10 @@ case "$1" in
 		echo "rootless $VERSION"
 		;;
 	-i | --install)
-		echo "installing tmux"
-		libevent
-		ncurses
-		clangd
 		tmux
-
-		echo "installing neovim"
 		neovim
-		vim_plug
-
-		echo "installing go"
-		go &>/dev/null
+		clangd
+		go
 
 		cleanup
 		;;
