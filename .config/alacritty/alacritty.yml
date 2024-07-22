@@ -1,0 +1,22 @@
+import:
+  - ~/.config/alacritty/themes/dark.yaml
+
+window:
+  opacity: 1
+  dimensions:
+    columns: 80
+    lines: 24
+
+env:
+  WINIT_X11_SCALE_FACTOR: "0.82"
+
+font:
+    normal:
+      family: Liberation Mono
+      style: Regular
+    italic:
+      family: Liberation Mono
+      style: Italic
+    bold:
+      family: Liberation Mono
+      style: Bold
