@@ -1,0 +1,24 @@
+# Volume
+XF86Audio{Raise,Lower}Volume
+	pactl set-sink-volume @DEFAULT_SINK@ {+,-}5%
+
+XF86AudioMicMute
+	pactl set-source-mute 0 toggle
+
+XF86AudioMute
+	pactl set-sink-mute @DEFAULT_SINK@ toggle
+
+# Shortcuts
+super + shift + {f,k,m}
+	{firefox,kblayout.sh,minecraft}
+
+alt + shift + Return
+	alacritty -o "window.dimensions.lines=58" -o "window.dimensions.columns=225"
+
+# Screenshoot
+Print
+	xfce4-screenshooter
+
+# Brightness
+XF86MonBrightness{Up,Down}
+	brillo -q {-A,-U} 5
