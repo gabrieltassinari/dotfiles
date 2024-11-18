@@ -10,18 +10,21 @@ vim.opt.relativenumber = false
 vim.api.nvim_set_option("clipboard","unnamed")
 
 -- Mapping
+local colorcolumn = function()
+  if (vim.o.cc == '80') then vim.o.cc = '0' else vim.o.cc = '80' end
+end
 
--- Column
-vim.keymap.set('n', 'c,', '<cmd>set cc=80<cr>')
-vim.keymap.set('n', 'c.', '<cmd>set cc=0<cr>')
+local disable_diagnostic = function()
+  vim.diagnostic.enable(not vim.diagnostic.is_enabled())
+end
+
+vim.keymap.set('n', 'c,', colorcolumn)
+vim.keymap.set('n', 'c.', disable_diagnostic)
 
 -- Replace increment key due to tmux bind C-a
 vim.keymap.set({'n', 'v'}, '<C-b>', '<C-a>')
 vim.keymap.set('v', 'g<C-b>', 'g<C-a>')
 
--- Create a new jupyter cell
-vim.keymap.set('n', '<C-s>c', 'o# %%<Esc>', { silent = true })
-vim.keymap.set('n', '<C-s>m', 'o# %% [markdown]<Esc>', { silent = true })
 
 -- Disable *{~,.un} files
 vim.opt.backup = false
