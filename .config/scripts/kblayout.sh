@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/bin/sh
 
 case $(setxkbmap -query | grep layout | awk '{ print $2 }') in
 	us) setxkbmap br ;;
