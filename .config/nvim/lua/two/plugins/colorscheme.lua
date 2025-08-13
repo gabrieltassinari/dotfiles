@@ -1,3 +1,0 @@
-return {
-	'gabrieltassinari/vim-sunbather'
-}
